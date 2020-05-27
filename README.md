@@ -8,7 +8,9 @@
  As of now, calculation demands T as an inlet parameter to retrieve mesh from .CSV file.
 
 3. To change the teperature of interest, thou needst either to:
+
    A. Change it manually in line 47 (main.cpp)
+   
    B. Replace 4 line in main.cpp with this (as an example):
 			
        int T = 34800;		
