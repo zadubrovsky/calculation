@@ -11,12 +11,10 @@
    A. Change it manually in line 47 (main.cpp)
    B. Replace 4 line in main.cpp with this (as an example):
 			
-       int T = 34800;
-							
-							to
-							
-							int T;
-							cin >> T;
+       int T = 34800;		
+       to							
+       int T;
+       cin >> T;
 							
       This'd allow thee to choose value on-the-run.
    If no such a temperature is present in .CSV header line, exception is raised.
