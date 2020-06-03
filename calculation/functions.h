@@ -19,7 +19,9 @@ std::vector<std::pair<double, double>> unIntEq(std::vector<std::pair<double, dou
 double underInt(double, double, double, double, double);
 double Simpson(double f(double, double, double, double, double), std::vector<std::vector<double>>);
 double IntRate(std::vector<std::pair<double, double>>&);
-
+double IntRate1(std::vector<std::pair<double, double>>&);
+double integrateTrapezoidal(std::vector<std::pair<double, double>>&);
+double integrateSimpson(std::vector<std::pair<double, double>>&);
 
 
 #endif // FUNC_H

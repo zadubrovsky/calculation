@@ -38,13 +38,13 @@ double Interpolator::findValue(double x) const {
   //If the caller's X value is greater than the largest
   //X value in the table, we can't interpolate.
   if(iter == _points.cend()) {
-    return (_points.cend() - 1)->second;
+    return 0;//(_points.cend() - 1)->second;
   }
 
   //If the caller's X value is less than the smallest X value in the table,
   //we can't interpolate.
   if(iter == _points.cbegin() and x <= _points.cbegin()->first) {
-    return _points.cbegin()->second;
+    return 0;//(_points.cbegin())->second;
   }
 
   //We can interpolate!

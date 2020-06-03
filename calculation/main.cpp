@@ -42,7 +42,7 @@ int main()
 
     vector<vector<double>> tableCSV, tableTXT;
 
-    vector<double> lambda1, lambda2, lambda, mesh1val, mesh2val;
+    vector<double> lambda1, lambda2, lambda;
 
     int T = 34800;
 
@@ -125,10 +125,6 @@ int main()
 
         mesh2new.push_back(make_pair(lam, interp2.findValue(lam)));
 
-        mesh1val.push_back(interp1.findValue(lam));
-
-        mesh2val.push_back(interp2.findValue(lam));
-
     }
 
     cout << "==============================" << '\n';
@@ -148,17 +144,40 @@ int main()
     std::vector<std::pair<double, double>> func = unIntNonEq(mesh1new, mesh2new, 1);
 //    std::vector<std::pair<double, double>> func = unIntEq(meshNonEq, T, 1, 1);
 
-    for ( size_t i = 0; i < 100; ++i )
+    ofstream output;
+
+    output.open("C:\\Users\\user\\Desktop\\datafile.csv", ios_base::out);
+
+    for  (size_t i = 0; i < mesh1new.size(); ++i)
+    {
+        output <<  mesh1new[i].first << ';' << mesh1new[i].second
+               << ';' << mesh2new[i].second << ';' << '\n';
+    }
+
+    output.close();
+
+    for ( size_t i = 0; i < 10; ++i )
     {
         cout << func[i].first << '\t' << func[i].second << '\n';
     }
 
-     cout << "==============================" << '\n';
+    cout << "==============================" << '\n';
 
-     cout << IntRate(func) << '\n';
 
-     cout << (prev(end(func))->first - begin(func)->first) / func.size() << '\n';
+    for ( size_t i = func.size(); i > func.size() - 10; --i )
+    {
+        cout << func[i].first << '\t' << func[i].second << '\n';
+    }
 
+    cout << "==============================" << '\n';
+
+    cout << "Trapezoidal:\t" << integrateTrapezoidal(func) << '\n';
+
+    cout << "==============================" << '\n';
+
+    cout << "Simpson:\t" << integrateSimpson(func) << '\n';
+
+    cout << "==============================" << '\n';
 
 
 //==============================================================================

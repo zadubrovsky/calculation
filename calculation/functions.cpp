@@ -3,7 +3,16 @@
 #include <stdexcept>
 
 
-
+/**
+ * Retrieve the index of column within .csv header (with respect to RegEx used)
+ * which inludes temp value as a subpattern.
+ *
+ * @brief GetColIndForTempCSVHead
+ * @param str Header line to be parsed
+ * @param temp Temperature value to be found
+ * @throw std::invalid_argument Thrown if no such temp value is in str
+ * @returns int Column number where temp value is situated, -1 otherwise
+ */
 int GetColIndForTempCSVHead(std::string& str, int& temp){
 
     std::regex reg("((\\w+,\\w+\\\\\\w+,\\w+);|T=(\\d{1,6});?)");
@@ -32,6 +41,13 @@ int GetColIndForTempCSVHead(std::string& str, int& temp){
     return -1;
 };
 
+/**
+ * Retrieve header line out of .csv file.
+ *
+ * @brief GetHeaderLine
+ * @param path Path to the .csv file.
+ * @returns std::string  Header line as std::string
+ */
 std::string GetHeaderLine(std::string const& path)
 {
     std::fstream fs;
@@ -205,8 +221,8 @@ std::vector<std::pair<double, double>> meshCut(
     {
         auto iter = std::lower_bound(begin(mesh_to_fit), end(mesh_to_fit), it.first, lessThan);
 
-        if(iter == mesh_to_fit.cend()){mesh_to_cut.erase(upper_bound(begin(mesh_to_cut),
-                                 end(mesh_to_cut), it.first, lessThan1), end(mesh_to_cut));}
+        if(iter == mesh_to_fit.cend()){mesh_to_cut.erase(lower_bound(begin(mesh_to_cut),
+                                 end(mesh_to_cut), it.first, lessThan), end(mesh_to_cut));}
 
         if(iter == mesh_to_fit.cbegin() and it.first <= mesh_to_fit.cbegin()->first){
             mesh_to_cut.erase(begin(mesh_to_cut), upper_bound(begin(mesh_to_cut),
@@ -248,17 +264,27 @@ std::vector<std::pair<double, double>> unIntEq(std::vector<std::pair<double, dou
     return func;
 }
 
-double IntRate(std::vector<std::pair<double, double>>& F)
+double integrateTrapezoidal(std::vector<std::pair<double, double>>& F)
 {
-    const double h = (prev(end(F))->first - begin(F)->first) / F.size();
+    double sum = 0;
 
-    double k1 = 0, k2 = 0;
-
-    for (std::size_t i = 1; i < F.size(); i += 2)
+    for (std::size_t i = 1; i < F.size() + 1; ++i)
     {
-        k1 += F[i].second;
-
-        k2 += F[i + 1].second;
+        sum += ((F[i - 1].second + F[i].second) * (F[i].first - F[i - 1].first) / 2);
     }
-    return h / 3 * (F[0].second + 4 * k1 + 2 * k2);
+
+    return sum;
+}
+
+double integrateSimpson(std::vector<std::pair<double, double>>& F)
+{
+    double sum = 0;
+
+    for (std::size_t i = 0; i < F.size(); i += 2)
+    {
+        sum += ((F[i + 2].first - F[i].first) / 6.0) *
+               (F[i + 2].second + F[i].second + 4.0 * (F[i + 1].second));
+    }
+
+    return sum;
 }
