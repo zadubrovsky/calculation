@@ -7,16 +7,14 @@
  
  As of now, calculation demands T as an inlet parameter to retrieve mesh from .CSV file.
 
-3. To change the teperature of interest, thou needst either to:
+3. Pass T values as an array:
+	1. Insert the number of the temperatures of thy interest.
+	2. Insert the very values.
 
-   A. Change it manually in line 47 (main.cpp)
-   
-   B. Replace 4 line in main.cpp with this (as an example):
-			
-       int T = 34800;		
-       to							
-       int T;
-       cin >> T;
-							
-      This'd allow thee to choose value on-the-run.
-   If no such a temperature is present in .CSV header line, exception is raised.
+4. Programme's output is represented as a .CSV table "_build/integral.csv".
+
+5. To change output file's path/name:
+	1. Go to: main.cpp (line 57).
+	2. Change "integral.csv" to "(ABSOLUTE PATH)\\filename.csv"
+	3. Enjoy.
+	
