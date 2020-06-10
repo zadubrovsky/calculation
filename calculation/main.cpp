@@ -30,21 +30,43 @@ int main()
 
     cout << "thread ID: " << this_thread::get_id() << '\n';
 
-    ios_base::sync_with_stdio(false);
+//    ios_base::sync_with_stdio(false);
 
-    cin.tie(NULL);
+//    cin.tie(NULL);
 
     string path_csv = "D:\\Documents\\Kintech Lab\\MAY\\interpolation\\data.csv";
 
     string path_txt = "D:\\Documents\\Kintech Lab\\MAY\\interpolation\\flow.txt";
+
+    std::ofstream data;
+
+    int size;
+
+    cout << "Enter T point number:\t";
+
+    cin >> size;
+
+    double* Temperatures = new double[size];
+
+    for (int i = 0; i < size; ++i)
+    {
+        cout << "Enter value:\t";
+        cin >> Temperatures[i];
+    }
+
+    data.open("integral.csv", std::ios_base::out);
+
+    data << "Temperature;Trapezoidal;Simpson;\n";
+
+    for (int i = 0; i < size; ++i)
+    {
+    int T = Temperatures[i];
 
     vector<pair<double, double>> mesh1, mesh2, mesh1new, mesh2new, meshNonEq;
 
     vector<vector<double>> tableCSV, tableTXT;
 
     vector<double> lambda1, lambda2, lambda;
-
-    int T = 34800;
 
     thread t1([&tableCSV, &path_csv, &mesh1, &meshNonEq, &T]() { tableCSV = csvParse(path_csv);
         cout << "thread ID-csv: " << this_thread::get_id() << '\n';
@@ -69,6 +91,10 @@ int main()
     t1.join();
 
     t2.join();
+
+    cout << "==============================" << '\n';
+
+    cout << '\t' << T << " K" << '\n';
 
     cout << "==============================" << '\n';
 
@@ -144,18 +170,6 @@ int main()
     std::vector<std::pair<double, double>> func = unIntNonEq(mesh1new, mesh2new, 1);
 //    std::vector<std::pair<double, double>> func = unIntEq(meshNonEq, T, 1, 1);
 
-    ofstream output;
-
-    output.open("C:\\Users\\user\\Desktop\\datafile.csv", ios_base::out);
-
-    for  (size_t i = 0; i < mesh1new.size(); ++i)
-    {
-        output <<  mesh1new[i].first << ';' << mesh1new[i].second
-               << ';' << mesh2new[i].second << ';' << '\n';
-    }
-
-    output.close();
-
     for ( size_t i = 0; i < 10; ++i )
     {
         cout << func[i].first << '\t' << func[i].second << '\n';
@@ -179,7 +193,14 @@ int main()
 
     cout << "==============================" << '\n';
 
+    data << T << ';' << integrateTrapezoidal(func)
+         << ';' << integrateSimpson(func) << ";\n";
 
+    }
+
+    data.close();
+
+    delete[] Temperatures;
 //==============================================================================
 
     return 0;
