@@ -1,11 +1,11 @@
 # calculation
- Reaction's rate constant calculation
+  eaction's rate constant calculation
  
  1. To run calculation, .CSV and .TXT data is demanded. As as test case, ones are attached here.
  
  2. Change path_csv, path_txt in main.cpp file.
  
- As of now, calculation demands T as an inlet parameter to retrieve mesh from .CSV file.
+  As of now, calculation demands T as an inlet parameter to retrieve mesh from .CSV file.
 
 3. Pass T values as an array:
 	1. Insert the number of the temperatures of thy interest.
