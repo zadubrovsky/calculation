@@ -1,5 +1,5 @@
 # calculation
-  eaction's rate constant calculation
+  Reaction's rate constant calculation
  
  1. To run calculation, .CSV and .TXT data is demanded. As as test case, ones are attached here.
  
