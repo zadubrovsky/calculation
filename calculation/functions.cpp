@@ -288,8 +288,8 @@ std::vector<std::pair<double, double>> meshCut(
 
 double Planck(double lam, double T)
 {
-    return 2 * 6.626e-34 * pow(3e8, 2) * pow(lam, -5) *
-            expm1(6.626e-34 * 3e8 * pow(lam * T * 1.38e-23, -1));
+    return 2 * 6.626e-34 * std::pow(3e8, 2) * std::pow(lam, -5) /
+            std::expm1(6.626e-34 * 3e8 * std::pow(lam * T * 1.38e-23, -1));
 };
 
 std::vector<std::pair<double, double>> unIntNonEq(std::vector<std::pair<double, double>>& K, std::vector<std::pair<double, double>>& F, double z = 1)
@@ -324,10 +324,21 @@ double integrateTrapezoidal(std::vector<std::pair<double, double>>& F)
 
     for (std::size_t i = 1; i < F.size(); ++i)
     {
-        sum += ((F[i - 1].second + F[i].second) * (F[i].first - F[i - 1].first) / 2);
+        sum += ((F[i - 1].second + F[i].second) * (F[i].first - F[i - 1].first));
 
     }
-    return sum;
+    return sum / 2;
+}
+
+double integrateTrapezoidal(double(&f)(double, double), double min, double max, double N, double T){
+
+    double h = (max - min) / N;
+
+    double sum = f(min, T) + f(max, T);
+
+    for (int i = 1; i < N; ++i){sum += 2 * f(min + i * h, T);}
+
+    return sum * (h / 2);
 }
 
 double integrateSimpson(std::vector<std::pair<double, double>>& F)
@@ -338,7 +349,7 @@ double integrateSimpson(std::vector<std::pair<double, double>>& F)
     {
         if (i == 0 || i == F.size()) { sum += F[i].second;}
 
-        if (i % 2 != 0) { sum += 4 * F[i].second;}
+        else if (i % 2 != 0) { sum += 4 * F[i].second;}
 
         else { sum += 2 * F[i].second;}
     }

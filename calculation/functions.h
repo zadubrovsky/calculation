@@ -22,6 +22,8 @@ double Simpson(double f(double, double, double, double, double), std::vector<std
 double IntRate(std::vector<std::pair<double, double>>&);
 double IntRate1(std::vector<std::pair<double, double>>&);
 double integrateTrapezoidal(std::vector<std::pair<double, double>>&);
+
+double integrateTrapezoidal(double(&f)(double, double), double, double, double, double);
 double integrateSimpson(std::vector<std::pair<double, double>>&);
 
 

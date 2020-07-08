@@ -66,40 +66,34 @@ int main()
 
     cout << "thread ID: " << this_thread::get_id() << '\n';
 
-//    ios_base::sync_with_stdio(false);
+    string path_csv = "..\\input\\data.csv";
 
-//    cin.tie(NULL);
+    string path_txt = "..\\input\\flow.txt";
 
-    string path_csv = "D:\\Documents\\Kintech Lab\\MAY\\interpolation\\data.csv";
-
-    string path_txt = "D:\\Documents\\Kintech Lab\\MAY\\interpolation\\flow.txt";
-
-    std::string pathTemp = "D:\\Documents\\Kintech Lab\\JUNE\\T";
+    std::string pathTemp = "..\\input\\T";
 
     std::ofstream data;
 
     std::vector<double> Temperatures = GetTempField(pathTemp);
 
-    data.open("C:\\Users\\user\\Desktop\\integral.csv", std::ios_base::out);
+    data.open("..\\output\\output.csv", std::ios_base::out);
 
-    data << "Temperature;Trapezoidal;Simpson;\n";
+    data << "T, K;Rate, 1/(s*m^3);\n";
 
     for (size_t i = 0; i < Temperatures.size(); ++i)
     {
     double T = Temperatures[i];
 
-    vector<pair<double, double>> mesh1, mesh2, mesh1new, mesh2new, meshNonEq;
+    vector<pair<double, double>> mesh1, mesh2, mesh1new, mesh2new;
 
     vector<vector<double>> tableCSV, tableTXT;
 
     vector<double> lambda1, lambda2, lambda;
 
-    thread t1([&tableCSV, &path_csv, &mesh1, /*&meshNonEq,*/ &T]() { tableCSV = csvParse(path_csv);
+    thread t1([&tableCSV, &path_csv, &mesh1, &T]() { tableCSV = csvParse(path_csv);
         cout << "thread ID-csv: " << this_thread::get_id() << '\n';
 
         mesh1 = GetMeshCSV(tableCSV, path_csv, T);
-
-        //meshNonEq = GetMeshCSV(tableCSV, path_csv, T);
     });
 
     thread t2([&tableTXT, &path_txt, &mesh2]() { tableTXT = txtParse(path_txt);
@@ -123,39 +117,6 @@ int main()
 
     outputNodes(mesh1, mesh2);
 
-//=====================CUT=MESH=================================================
-
-//    meshCut(mesh1, mesh2);
-
-//    mesh2.pop_back();
-
-//    meshCut(mesh2, mesh1);
-
-//    cout << "MESH CUTTING" << '\n';
-
-//    cout << "==============================" << '\n';
-
-//    outputNodes(mesh1, mesh2);
-
-//==========================UNIFY=LAMBDA=RANGE==================================
-
-//    cout << "UNIFYING LAMBDA RANGE" << '\n';
-
-//    for (auto it : mesh1){lambda1.push_back(it.first);}
-
-//    for (auto it : mesh2){lambda2.push_back(it.first);}
-
-//    set_union(begin(lambda1), end(lambda1), begin(lambda2),
-//              end(lambda2), std::back_inserter(lambda),
-//              [](double a, double b){return b - a > 1e-12;});
-
-//    cout << "==============================" << '\n';
-
-//    cout << lambda1.size() << '\t' << lambda2.size() << '\t' << lambda.size() << '\n';
-
-
-//    cout << "==============================" << '\n';
-
 //==============================================================================
 
     cout << "INTERPOLATION" << '\n';
@@ -168,52 +129,105 @@ int main()
 
     cout << mesh1new.size() << '\t' << mesh2new.size() << '\n';
 
-    std::vector<std::pair<double, double>> func;
+//==============================================================================
 
-    for (size_t i = 0; i < mesh1new.size(); ++i) {
+    cout << '\n' << "SIEVING" << '\n';
 
-        double mlt = mesh1new[i].second * mesh2new[i].second *
-                mesh1new[i].first;
+    cout << "==============================" << '\n';
 
-        if (mlt && !std::isnan(mlt) && mlt > 1e-12) {func.push_back(
-                        std::make_pair(mesh1new[i].first,
+    mesh1new.erase(std::unique(mesh1new.begin(), mesh1new.end(),
+             [](const std::pair<double, double>& a, const std::pair<double, double>& b)
+             {return std::abs(a.first - b.first) < 1e-11;}), mesh1new.end());
+
+    mesh2new.erase(std::unique(mesh2new.begin(), mesh2new.end(),
+             [](const std::pair<double, double>& a, const std::pair<double, double>& b)
+             {return std::abs(a.first - b.first) < 1e-11;}), mesh2new.end());
+
+    std::sort(std::begin(mesh1new), std::end(mesh1new),
+              [](std::pair<double, double>& a, std::pair<double, double>& b)
+              {return a.first < b.first;});
+
+    std::sort(std::begin(mesh2new), std::end(mesh2new),
+              [](std::pair<double, double>& a, std::pair<double, double>& b)
+              {return a.first < b.first;});
+
+    cout << "\n";
+
+    cout << mesh1new.size() << '\t' << mesh2new.size() << '\n';
+
+    cout << "\n";
+
+    for (size_t i = 0; i < 10; ++i) {
+
+        cout << mesh1new[i].first << '\t' << mesh1new[i].second << '\t'
+             << mesh2new[i].first << '\t' << mesh2new[i].second << '\n';
+    }
+
+    cout << "\n\n";
+
+    for (size_t i = 0; i < 10; ++i) {
+
+        cout << mesh1new[mesh1new.size()  - i].first << '\t' << mesh1new[mesh1new.size() - i].second << '\t'
+             << mesh2new[mesh2new.size()  - i].first << '\t' << mesh2new[mesh2new.size() - i].second << '\n';
+    }
+
+    cout << '\n';
+
+    cout << mesh1new.size() << '\t' << mesh2new.size() << '\n';
+
+    cout << "==============================" << '\n';
+
+//==============================================================================
+
+    cout << "CALCULATION" << '\n';
+
+    cout << "==============================" << '\n';
+
+    std::vector<std::pair<double, double>> func, func_eq;
+
+    for (size_t i = 0; i < mesh1.size(); ++i) {
+
+        double mlt = mesh1[i].second * mesh2new[i].second *
+                     mesh1[i].first * 5.0307e33;
+        if (mlt > 1e-10 && !std::isnan(mlt)) {func.push_back(
+                        std::make_pair(mesh1[i].first, mlt));}
+    }
+
+    func.pop_back();
+
+    for (size_t i = 0; i < mesh1.size(); ++i) {
+
+        double mlt = mesh1[i].second * Planck(mesh1[i].first, T) *
+                     mesh1[i].first * 5.0307e24;
+        if (mlt && !std::isnan(mlt)) {func_eq.push_back(
+                        std::make_pair(mesh1[i].first,
                                         mlt));}
     }
 
-//    Interpolator interp1(mesh1);
-
-//    Interpolator interp2(mesh2);
-
-//    for (auto lam : lambda){
-
-//        mesh1new.push_back(make_pair(lam, interp1.findValue(lam)));
-
-//        mesh2new.push_back(make_pair(lam, interp2.findValue(lam)));
-
-//    }
-
-//    outputNodes(mesh1new, mesh2new);
-
-//    for  (size_t i = 0; i < 100; ++i)
-//    {
-//        cout << mesh1new[i].first << "\t|\t" << mesh1new[i].second << "\t|\t"
-//             << mesh2new[i].second << '\n';
-//    }
-
-//    cout << "==============================" << '\n';
-
 //=======================INTEGRATING===========================================
 
-//    std::vector<std::pair<double, double>> func = unIntNonEq(mesh1new, mesh2new, 1);
-//    std::vector<std::pair<double, double>> func = unIntEq(meshNonEq, T, 1, 1);
+    cout << '\n';
 
+    cout << func.size() << '\n';
+
+    cout << '\n';
+
+    func.erase(std::unique(func.begin(), func.end(),
+             [](const std::pair<double, double>& a, const std::pair<double, double>& b)
+             {return std::abs(a.first - b.first) < 1e-11;}), func.end());
+
+    cout << '\n';
+
+    cout << func.size() << '\n';
+
+    cout << '\n';
 
     for ( size_t i = 0; i < 10; ++i )
     {
         cout << func[i].first << '\t' << func[i].second << '\n';
     }
 
-    cout << "==============================" << '\n';
+    cout << "\n\n";
 
 
     for ( size_t i = func.size(); i > func.size() - 10; --i )
@@ -221,7 +235,7 @@ int main()
         cout << func[i].first << '\t' << func[i].second << '\n';
     }
 
-    double result = 4 * M_PI * 5.0307e33 * integrateTrapezoidal(func);
+    double result = 4 * M_PI * integrateTrapezoidal(func);
 
     cout << "==============================" << '\n';
 
@@ -229,13 +243,30 @@ int main()
 
     cout << "==============================" << '\n';
 
+    cout << "Equilibrium:\t" << M_PI * integrateTrapezoidal(func_eq)  << '\n';
+
+    cout << "==============================" << '\n';
+
+    if (T == 34800) {
+
+        cout << "Error, %:\t" << 100 * std::abs(result - 1.939e28) / 1.939e28 << '\n';
+
+        cout << "==============================" << '\n';
+    }
+
     data << T << ';' << result << '\n';
 
     }
 
     data.close();
 
-//==============================================================================
+    cout << "Planck:\t" << Planck(1e-8, 1e5)  << '\t' << Planck(1e-4, 1e5) << '\n';
+
+    cout << "Stefan-Boltzman:\t" << 5.67e-8 * std::pow(34800, 4) << '\n';
+
+    cout << "Planck's law:\t\t" << M_PI * integrateTrapezoidal(Planck, 1e-8, 1e-4, 1e7, 34800)  << '\n';
+
+
 
     return 0;
 };
