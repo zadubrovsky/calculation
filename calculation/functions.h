@@ -7,10 +7,11 @@
 
 std::vector<std::vector<double>> txtParse(std::string const&);
 std::vector<std::vector<double>> csvParse(std::string const&, const char deliiter = ';');
-std::vector<std::pair<double, double>> GetMeshCSV(const std::vector<std::vector<double>>&, const std::string&, int&);
+std::vector<std::pair<double, double>> GetMeshCSV(const std::vector<std::vector<double>>&, const std::string&, double&);
 std::vector<std::pair<double, double>> GetMeshTXT(const std::vector<std::vector<double>>&, int colNumber = 1);
+std::vector<double> GetTempField(std::string&);
 std::string GetHeaderLine(std::string const&);
-int GetColIndForTempCSVHead(std::string&, int&);
+int GetColIndForTempCSVHead(std::string&, double&);
 std::vector<std::pair<double, double>> meshCut(const std::vector<std::pair<double, double>>&,std::vector<std::pair<double, double>>&);
 
 double Planck(double lam, double T);

@@ -12,7 +12,7 @@ Interpolator::Interpolator(const std::vector<std::pair<double, double>>& points)
 
   //Ensure that no 2 adjacent x values are equal,
   //lest we try to divide by zero when we interpolate.
-  const double EPSILON{1.0E-11};
+  const double EPSILON{1.0E-13};
   for(std::size_t i=1; i<_points.size(); ++i) {
     double deltaX{std::abs(_points[i].first - _points[i-1].first)};
     if(deltaX < EPSILON ) {

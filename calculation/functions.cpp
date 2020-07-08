@@ -2,6 +2,59 @@
 #include "functions.h"
 #include <stdexcept>
 
+/**
+ * Retrieve temperature values from OpenFOAM "T" file.
+ *
+ * @brief GetTempField
+ * @param pathTemp Absolute PATH to "T" file.
+ * @return std::vector<double> Temperature values
+ */
+std::vector<double> GetTempField(std::string& pathTemp)
+{
+std::ifstream Temperatures(pathTemp, std::ios_base::in);
+
+std::vector<double> tempVal;
+
+try
+    {
+       if (!Temperatures.is_open())
+       {
+           throw invalid_argument("OpenError");
+       }
+       else
+       {
+          cout << "Success: file opened" << '\n';
+
+          std::string str;
+
+          while (str != "internalField   nonuniform List<scalar> ")
+          {
+              getline(Temperatures, str, '\n');
+          }
+
+          getline(Temperatures, str, '\n');
+
+          int size = std::stoi(str);
+
+          getline(Temperatures, str, '\n');
+
+          for (int i = 0; i < size; ++i)
+          {
+              getline(Temperatures, str, '\n');
+
+              tempVal.push_back(std::stod(str));
+          }
+       }
+    }
+    catch (invalid_argument& ia)
+    {
+        cerr << ia.what() << endl;
+    }
+
+    Temperatures.close();
+
+    return tempVal;
+}
 
 /**
  * Retrieve the index of column within .csv header (with respect to RegEx used)
@@ -13,9 +66,9 @@
  * @throw std::invalid_argument Thrown if no such temp value is in str
  * @returns int Column number where temp value is situated, -1 otherwise
  */
-int GetColIndForTempCSVHead(std::string& str, int& temp){
+int GetColIndForTempCSVHead(std::string& str, double& temp){
 
-    std::regex reg("((\\w+,\\w+\\\\\\w+,\\w+);|T=(\\d{1,6});?)");
+    std::regex reg("((\\w+,\\w+\\\\\\w+,\\w+);|T=((\\d+|\\d+\\.\\d*));?)");
 
     auto firstIt = std::sregex_iterator(begin(str), end(str), reg);
 
@@ -27,9 +80,10 @@ int GetColIndForTempCSVHead(std::string& str, int& temp){
     {
         std::smatch match = *k;
 
-        if (match[match.size() - 1] == std::to_string(temp)){return std::distance(firstIt, k);}
-
-        else{continue;}
+        try {if (std::stod(match[match.size() - 1]) == temp)
+            {return std::distance(firstIt, k);}
+            else{continue;}
+        } catch (...) {continue;}
     }
 
     throw std::invalid_argument("No such value in headline of .csv file");
@@ -63,7 +117,7 @@ std::string GetHeaderLine(std::string const& path)
     return header;
 }
 
-std::vector<std::pair<double, double>> GetMeshCSV(const std::vector<std::vector<double>>& table, const std::string& pathCSV, int& T){
+std::vector<std::pair<double, double>> GetMeshCSV(const std::vector<std::vector<double>>& table, const std::string& pathCSV, double& T){
 
     std::vector<std::pair<double, double>> mesh;
 
@@ -268,11 +322,11 @@ double integrateTrapezoidal(std::vector<std::pair<double, double>>& F)
 {
     double sum = 0;
 
-    for (std::size_t i = 1; i < F.size() + 1; ++i)
+    for (std::size_t i = 1; i < F.size(); ++i)
     {
         sum += ((F[i - 1].second + F[i].second) * (F[i].first - F[i - 1].first) / 2);
-    }
 
+    }
     return sum;
 }
 
@@ -280,11 +334,14 @@ double integrateSimpson(std::vector<std::pair<double, double>>& F)
 {
     double sum = 0;
 
-    for (std::size_t i = 0; i < F.size(); i += 2)
+    for (std::size_t i = 0; i < F.size(); ++i)
     {
-        sum += ((F[i + 2].first - F[i].first) / 6.0) *
-               (F[i + 2].second + F[i].second + 4.0 * (F[i + 1].second));
+        if (i == 0 || i == F.size()) { sum += F[i].second;}
+
+        if (i % 2 != 0) { sum += 4 * F[i].second;}
+
+        else { sum += 2 * F[i].second;}
     }
 
-    return sum;
+    return sum / 3 ;
 }
