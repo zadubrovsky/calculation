@@ -259,6 +259,41 @@ std::vector<std::vector<double>> txtParse(std::string const& path)
     return table;
 };
 
+bool isinX(double x, std::vector<std::pair<double, double>>& mesh) {
+
+    std::vector<double> valuesX;
+
+    for (auto& it: mesh) {valuesX.push_back(it.first);};
+
+    if (std::find(std::begin(valuesX), std::end(valuesX), x) != std::end(valuesX)){return true;}
+
+    return false;
+}
+
+std::vector<std::pair<double, double>> interMesh(std::vector<std::pair<double, double>>& m1,
+                                                 std::vector<std::pair<double, double>>& m2) {
+    Interpolator grid1(m1);
+
+    std::vector<std::pair<double, double>> m1n;
+
+    for (auto& it: m1) {m1n.push_back(it);}
+
+    for (size_t i = 0; i < m2.size(); ++i) {
+
+        double xn = m2[i].first;
+
+        if (!isinX(xn, m1)) {m1n.push_back(std::make_pair(xn, grid1.findValue(xn)));}
+
+    }
+
+    std::sort(std::begin(m1n), std::end(m1n),
+              [](std::pair<double, double> a, std::pair<double, double> b) {
+        return (b.first - a.first) > 1e-11;
+    });
+
+    return m1n;
+}
+
 std::vector<std::pair<double, double>> meshCut(
             const std::vector<std::pair<double, double>>& mesh_to_fit,
             std::vector<std::pair<double, double>>& mesh_to_cut)

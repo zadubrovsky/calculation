@@ -12,6 +12,9 @@ std::vector<std::pair<double, double>> GetMeshTXT(const std::vector<std::vector<
 std::vector<double> GetTempField(std::string&);
 std::string GetHeaderLine(std::string const&);
 int GetColIndForTempCSVHead(std::string&, double&);
+std::vector<std::pair<double, double>> interMesh(std::vector<std::pair<double, double>>&,
+                                                 std::vector<std::pair<double, double>>&);
+bool isinX(double x, std::vector<std::pair<double, double>>&);
 std::vector<std::pair<double, double>> meshCut(const std::vector<std::pair<double, double>>&,std::vector<std::pair<double, double>>&);
 
 double Planck(double lam, double T);
