@@ -1,7 +1,8 @@
 # calculation
   Reaction's rate constant calculation
  
- 1. To run the calculation, .CSV and .TXT data is demanded as well as T-file with temperature field. Sample files are attached in "~/input".
+ 1. To run the calculation, .CSV and .TXT data is demanded as well as T-file with temperature field.
+    Sample files are attached in "~/input".
  
  2. WARNING: to set the programme to work, make appropriate changes of T-file. Code will fail to run otherwise.
 
