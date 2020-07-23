@@ -10,6 +10,12 @@ std::vector<std::vector<double>> txtParse(std::string const&);
 
 std::vector<std::pair<double, double>> GetMeshTXT(const std::vector<std::vector<double>>&, int colNumber = 1);
 
+/*==============.INP=FILE=PROCESSING=FUNCTIONS================================*/
+
+std::vector<std::vector<double>> inpParse(std::string&);
+
+std::vector<std::pair<double, double>> GetMeshINP(const std::vector<std::vector<double>>&, double&);
+
 /*==============.CSV=FILE=PROCESSINF=FUNCTIONS================================*/
 
 std::vector<std::vector<double>> csvParse(std::string const&, const char deliiter = ';');
@@ -32,6 +38,8 @@ std::vector<std::pair<double, double>> interMesh(std::vector<std::pair<double, d
 /*==============MATH=FUNCTIONS=AND=BOOLEAN=FILTERS============================*/
 
 bool isinX(double x, std::vector<std::pair<double, double>>&);
+
+bool isinT(double T, const std::vector<std::vector<double>>&);
 
 double Planck(double lam, double T);
 
