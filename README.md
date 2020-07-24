@@ -10,7 +10,7 @@
     
     NOTE: 1. The programme is able to process either .csv or .inp files with absorption coefficients.
     	  2. To switch between those two file-processing modes, go to main.cpp and chsnge:
-	  	\tstd::string mode = "inp"; to .. = "csv"; or in reverse;
+	  	std::string mode = "inp"; to .. = "csv"; or in reverse;
 	  3. The default input file format is set to be .inp
 	  4. Although, parsing and processing .inp file takes lot more time rather than .csv
  
