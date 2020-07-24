@@ -357,14 +357,11 @@ std::vector<std::pair<double, double>> GetMeshCSV(const std::vector<std::vector<
 }
 
 /**
- * Retrieve the index of column within .csv header (with respect to RegEx used)
- * which inludes temp value as a subpattern.
+ * Retrieve the temperatures' values from .csv header (with respect to RegEx used)
  *
  * @brief GetColIndForTempCSVHead
  * @param str Header line to be parsed
- * @param temp Temperature value to be found
- * @throw std::invalid_argument Thrown if no such temp value is in str
- * @returns int Column number where temp value is situated, -1 otherwise
+ * @returns std::vector<double> Temperature values
  */
 std::vector<double> GetTempCSV(std::string& str){
 
