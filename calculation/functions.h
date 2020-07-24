@@ -20,11 +20,9 @@ std::vector<std::pair<double, double>> GetMeshINP(const std::vector<std::vector<
 
 std::vector<std::vector<double>> csvParse(std::string const&, const char deliiter = ';');
 
-std::vector<std::pair<double, double>> GetMeshCSV(const std::vector<std::vector<double>>&, const std::string&, double&);
+std::vector<std::pair<double, double>> GetMeshCSV(const std::vector<std::vector<double>>&, double&);
 
-std::string GetHeaderLine(std::string const&);
-
-int GetColIndForTempCSVHead(std::string&, double&);
+std::vector<double> GetTempCSV(std::string&);
 
 /*==============T=FIELD=FILE=PROCESSINF=FUNCTIONS=============================*/
 

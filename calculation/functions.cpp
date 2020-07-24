@@ -173,13 +173,13 @@ std::vector<std::pair<double, double>> GetMeshINP(const std::vector<std::vector<
         //If the caller's T value is greater than the largest
         //T value in the temp range, we can't interpolate.
         if(iter == table[table.size() - 1].cend()) {
-          throw std::invalid_argument("Input T > T_MAX from .inp file");
+          throw std::invalid_argument("Input T > T_MAX in .inp file");
         }
 
         //If the caller's T value is less than the smallest
         //T value in the temp range, we can't interpolate.
         if(iter == table[table.size() - 1].cbegin() and T < table[table.size() - 1][0]) {
-          throw std::invalid_argument("Input T < T_MIN from .inp file");
+          throw std::invalid_argument("Input T < T_MIN in .inp file");
         }
 
         // Interpolation's linear coefficient
@@ -231,7 +231,7 @@ std::vector<std::vector<double>> csvParse(std::string const& path, const char de
 
     std::vector<std::vector<double>> table;
 
-    std::vector<std::pair<double, double>> mesh;
+    std::vector<double> _TEMP;
 
     try
     {
@@ -243,15 +243,15 @@ std::vector<std::vector<double>> csvParse(std::string const& path, const char de
        {
 //          cout << "Success: .csv file opened" << '\n';
 
-          std::string str;
+          std::string str, header;
 
           std::vector<double> temp;
 
           std::stringstream ss;
 
-          std::getline(fs, str, '\n');
+          std::getline(fs, header, '\n');
 
-          str.clear();
+          _TEMP = GetTempCSV(header);
 
           while (std::getline(fs, str, '\n'))
           {
@@ -281,45 +281,79 @@ std::vector<std::vector<double>> csvParse(std::string const& path, const char de
 
 //    std::cout << "Success: .csv file closed" << '\n';
 
+    table.push_back(_TEMP);
+
+
+    // K_ABS[lambda][T] == table[lambda][T] [1/cm]
+    // T == table[table.size() - 1] [K]
     return table;
 };
 
-std::vector<std::pair<double, double>> GetMeshCSV(const std::vector<std::vector<double>>& table, const std::string& pathCSV, double& T){
+std::vector<std::pair<double, double>> GetMeshCSV(const std::vector<std::vector<double>>& table, double& T){
 
     std::vector<std::pair<double, double>> mesh;
 
-    std::string header = GetHeaderLine(pathCSV);
+    //Define a lambda that returns true if the t-value
+    //of the given temp range is < the caller's t value
+    auto lessThan =
+        [](const double temp, double t)
+        {return temp < t;};
 
-    int colNum = GetColIndForTempCSVHead(header, T);
+    try {
 
-    for (auto& it : table)
-    {
-        mesh.push_back(std::make_pair(it[0], 100 * it[colNum]));
+        //Find the first table entry whose value is >= caller's T value
+        auto iter =
+            std::lower_bound(table[table.size() - 1].cbegin(), table[table.size() - 1].cend(), T, lessThan);
+
+        //If the caller's T value is greater than the largest
+        //T value in the temp range, we can't interpolate.
+        if(iter == table[table.size() - 1].cend()) {
+          throw std::invalid_argument("Input T > T_MAX in .csv file");
+        }
+
+        //If the caller's T value is less than the smallest
+        //T value in the temp range, we can't interpolate.
+        if(iter == table[table.size() - 1].cbegin() and T < table[table.size() - 1][0]) {
+          throw std::invalid_argument("Input T < T_MIN in .csv file");
+        }
+
+        // Interpolation's linear coefficient
+        double coef = (T - *(iter - 1)) / (*iter - *(iter - 1));
+
+        // Index of the lower t value in range: table[table.size() - 1][index] < T
+        double index = std::distance(table[table.size() - 1].cbegin(), iter);
+
+        // Fill in new MESH
+        for (size_t i = 0; i < table.size() - 1; ++i) {
+
+            // if T is not in .csv, but T_MIN <= T <= T_MAX -- interpolate
+            if (!isinT(T, table)) {
+
+                double deltaY = table[i][index + 1] - table[i][index];
+
+                if (deltaY >= 0) {mesh.push_back(std::make_pair(
+                                  table[i][0],
+                                  100 * (table[i][index] + coef * deltaY)));}
+
+                if (deltaY < 0) {mesh.push_back(std::make_pair(
+                                 table[i][0],
+                                 100 * (table[i][index] + std::pow(coef, -1) * deltaY)));}
+            } else {
+
+                //if T value coincides with some in .csv -- fill in without interpolation
+                //check if coef == 1 -- fill in with the next K(T[index + 1])
+                if (coef < 1) {mesh.push_back(std::make_pair(table[i][0],
+                                                  100 * table[i][index]));}
+                else {mesh.push_back(std::make_pair(table[i][0],
+                                     100 * table[i][index + 1]));}
+            }
+        }
     }
+    catch (std::exception& ex) {std::cerr << ex.what() << '\n';}
 
+    // mesh_T[lambda_index].first == LAM[lambda_index]
+    // mesh_T[lambda_index].second == K_T[lambda_index]
     return mesh;
-}
-
-/**
- * Retrieve header line out of .csv file.
- *
- * @brief GetHeaderLine
- * @param path Path to the .csv file.
- * @returns std::string  Header line as std::string
- */
-std::string GetHeaderLine(std::string const& path)
-{
-    std::fstream fs;
-
-    std::string header;
-
-    fs.open(path, std::fstream::in);
-
-    std::getline(fs, header, '\n');
-
-//    std::cout << "Header captured" << '\n';
-
-    return header;
 }
 
 /**
@@ -332,9 +366,11 @@ std::string GetHeaderLine(std::string const& path)
  * @throw std::invalid_argument Thrown if no such temp value is in str
  * @returns int Column number where temp value is situated, -1 otherwise
  */
-int GetColIndForTempCSVHead(std::string& str, double& temp){
+std::vector<double> GetTempCSV(std::string& str){
 
     std::regex reg("((\\w+,\\w+\\\\\\w+,\\w+);|T=((\\d+|\\d+\\.\\d*));?)");
+
+    std::vector<double> Temp;
 
     auto firstIt = std::sregex_iterator(begin(str), end(str), reg);
 
@@ -342,23 +378,24 @@ int GetColIndForTempCSVHead(std::string& str, double& temp){
 
     try{
 
-    for (std::sregex_iterator k = firstIt; k != lastIt; ++k)
-    {
+    for (std::sregex_iterator k = firstIt; k != lastIt; ++k) {
+
         std::smatch match = *k;
 
-        try {if (std::stod(match[match.size() - 1]) == temp)
-            {return std::distance(firstIt, k);}
-            else{continue;}
-        } catch (...) {continue;}
-    }
+        try {Temp.push_back(std::stod(match[match.size() - 1]));}
 
-    throw std::invalid_argument("No such value in headline of .csv file");
+        catch (...) {continue;}
 
+//        try {if (std::stod(match[match.size() - 1]) == temp)
+//            {return std::distance(firstIt, k);}
+//            else{continue;}
+//        } catch (...) {continue;}
+        }
     }
 
     catch (std::exception& e){std::cerr << e.what() << '\n';}
 
-    return -1;
+    return Temp;
 };
 
 /*==============T=FIELD=FILE=PROCESSING=FUNCTIONS=============================*/

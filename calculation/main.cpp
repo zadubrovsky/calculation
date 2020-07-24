@@ -66,7 +66,7 @@ int main()
 
     if (mode == "inp") {mesh1 = GetMeshINP(kabs, T);}
 
-    if (mode == "csv") {mesh1 = GetMeshCSV(kabs, path_csv, T);}
+    if (mode == "csv") {mesh1 = GetMeshCSV(kabs, T);}
 
 /*=============INTERPOLATION==================================================*/
 
@@ -151,7 +151,7 @@ int main()
 
 ////    cout << "Equilibrium:\t " << result_eq << '\n';
 
-    cout << "Rate:\t " << result  << '\n';
+    cout << T <<  " K\tRate:\t " << result  << '\n';
 
 //    if (T == 34800) {
 
