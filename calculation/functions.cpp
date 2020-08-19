@@ -119,7 +119,7 @@ std::vector<std::vector<double>> inpParse(std::string& path_inp) {
             catch (std::exception& ex) {continue;}
         }
 
-        if (LINE[0]) {table.push_back(LINE);}
+        if (!std::isnan(LINE[0])) {table.push_back(LINE);}
 
         LINE.clear();
     }

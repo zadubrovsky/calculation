@@ -7,11 +7,11 @@ int main()
 {
     Timer t; //time counter
 
-    std::string path_csv = "..\\input\\data.csv";
+    std::string path_csv = "..\\input\\data_sample.csv";
 
-    std::string path_inp = "..\\input\\data.inp";
+    std::string path_inp = "..\\input\\data_sample.inp";
 
-    std::string path_txt = "..\\input\\flow.txt";
+    std::string path_txt = "..\\input\\flow_sample.txt";
 
     std::string path_tmp = "..\\input\\T";
 
@@ -22,7 +22,7 @@ int main()
     std::vector<double> Temperatures = GetTempField(path_tmp);
 
     // Choose the input file format for K_ABS: "inp" or "csv"
-    std::string mode = "inp";
+    std::string mode = "csv";
 
     if (mode == "inp") {
 
@@ -50,9 +50,9 @@ int main()
 
     std::ofstream data;
 
-    data.open("..\\output\\output.csv", std::ios_base::out);
+    data.open("..\\output\\output", std::ios_base::out);
 
-    data << "T, K;Rate, 1/(s*m^3);\n";
+    data << Temperatures.size() << "\n(\n";
 
 /*==============ITERATING=OVER=TEMPERATURE=RANGE==============================*/
 
@@ -102,7 +102,7 @@ int main()
 
 /*==========================CALCULATION=======================================*/
 
-    std::vector<std::pair<double, double>> func, func_eq;
+    std::vector<std::pair<double, double>> func/*, func_eq*/;
 
     for (size_t i = 0; i < mesh1.size(); ++i) {
 
@@ -114,15 +114,6 @@ int main()
 
     func.pop_back();
 
-    for (size_t i = 0; i < mesh1.size(); ++i) {
-
-        double mlt = mesh1[i].second * Planck(mesh1[i].first, T) *
-                     mesh1[i].first * 5.0307e24;
-        if (mlt && !std::isnan(mlt)) {func_eq.push_back(
-                        std::make_pair(mesh1[i].first,
-                                        mlt));}
-    }
-
 /*=====================ERASING=REDUNDANT=POINTS===============================*/
 
     func.erase(std::unique(func.begin(), func.end(),
@@ -133,51 +124,39 @@ int main()
 
     double result = 4 * M_PI * integrateTrapezoidal(func);
 
-    data << T << ';' << result << '\n';     //writing into output file
+    data << result << '\n';     //writing into output file
 
 /*===============OUTPUTTING=RESULTS===========================================*/
 
-////    double result_eq = M_PI * integrateTrapezoidal(func_eq);
-
-//    double stbol = 5.67e-8 * std::pow(T, 4);
-
-//    double plaw = M_PI * integrateTrapezoidal(Planck, 1e-9, 1e-4, 1e7, T);
-
-//    cout << "=============================" << '\n';
-
-//    cout << '\t' << T << " K" << '\n';
-
-//    cout << "=============================" << '\n';
-
-////    cout << "Equilibrium:\t " << result_eq << '\n';
-
-    cout << T <<  " K\tRate:\t " << result  << '\n';
-
-//    if (T == 34800) {
-
-//        cout << "Error, %:\t " << 100 * std::abs(result - 1.939e30) / 1.939e30 << '\n';
-
-//        cout << "=============================" << '\n';
-
-//    } else {cout << "=============================" << '\n';}
-
-//    //cout << "Planck:\t" << Planck(1e-8, 1e5)  << '\t' << Planck(1e-4, 1e5) << '\n';
-
-//    cout << "Stefan-Boltzman: " << stbol << '\n';
-
-//    cout << "Planck's law:\t " << plaw << '\n';
-
-//    cout << "Error, %:\t " << 100 * std::abs(stbol - plaw) / stbol << '\n';
-
-//    cout << "=============================" << '\n';
+//    std::cout << T <<  " K\tRate:\t " << result  << '\n';
 
 /*============================================================================*/
 
     }
 
+    data << ")\n;\n";
+
     data.close();   //closing output file
 
+/*===========T=FILE=GENERATING================================================*/
 
+//    double te = 5000;
+
+//    std::ofstream flow("..\\output\\flow_my.txt", std::ios_base::out);
+    
+////    std::vector<std::vector<double>> table_csv = csvParse("..\\input\\absS2_my.csv", ';');
+    
+////    std::vector<std::pair<double, double>> m_csv = GetMeshCSV(table_csv, te);
+    
+//    for (size_t i = 20; i < 801; ++i) {
+
+//        flow << " " << i * 1e-9 << " " << Planck(i * 1e-9, te) / 1e-9
+//             << " " << NAN << "  " << NAN << '\n';
+//    }
+
+//    flow.close();
+
+/*============================================================================*/
 
     return 0;
 };
