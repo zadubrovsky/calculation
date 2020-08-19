@@ -138,7 +138,7 @@ int main()
 
     data.close();   //closing output file
 
-/*===========T=FILE=GENERATING================================================*/
+/*===========FLOW=FILE=GENERATING================================================*/
 
 //    double te = 5000;
 
