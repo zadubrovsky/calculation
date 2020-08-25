@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "functions.h"
 
-
-
 int main()
 {
     Timer t; //time counter
@@ -13,6 +11,8 @@ int main()
 
     std::string path_txt = "..\\input\\flow_sample.txt";
 
+    std::string path_con = "..\\input\\con_sample.csv";
+
     std::string path_tmp = "..\\input\\T";
 
     std::vector<std::vector<double>> kabs;
@@ -20,6 +20,8 @@ int main()
     std::vector<std::pair<double, double>> mesh2;
 
     std::vector<double> Temperatures = GetTempField(path_tmp);
+
+    std::vector<std::pair<double, double>> ConcentrationS2 = concParse(path_con, Temperatures);
 
     // Choose the input file format for K_ABS: "inp" or "csv"
     std::string mode = "csv";
@@ -122,7 +124,7 @@ int main()
 
 /*=======================INTEGRATION==========================================*/
 
-    double result = 4 * M_PI * integrateTrapezoidal(func);
+    double result = 4 * M_PI * integrateTrapezoidal(func) / ConcentrationS2[i].second;
 
     data << result << '\n';     //writing into output file
 
@@ -157,6 +159,7 @@ int main()
 //    flow.close();
 
 /*============================================================================*/
+
 
     return 0;
 };

@@ -17,7 +17,7 @@ std::vector<std::vector<double>> txtParse(std::string const& path)
     {
        if (!tx.is_open())
        {
-           throw std::invalid_argument("OpenError: .txt file");
+           throw std::invalid_argument("OpenError: flow.txt file");
        }
        else
        {
@@ -85,7 +85,7 @@ std::vector<std::vector<double>> inpParse(std::string& path_inp) {
 
     std::vector<double> T, LAM, LINE;
 
-    try {if (!inp.is_open()) {throw std::invalid_argument("OpenError: .inp file");}
+    try {if (!inp.is_open()) {throw std::invalid_argument("OpenError: data.inp file");}
 
          else {
 //            cout << "Success: .inp file opened" << '\n';
@@ -237,7 +237,7 @@ std::vector<std::vector<double>> csvParse(std::string const& path, const char de
     {
        if (!fs.is_open())
        {
-           throw std::invalid_argument("OpenError: .csv file");
+           throw std::invalid_argument("OpenError: data.csv file");
        }
        else
        {
@@ -414,7 +414,7 @@ try
     {
        if (!Temperatures.is_open())
        {
-           throw invalid_argument("OpenError: temp file");
+           throw invalid_argument("OpenError: T field file");
        }
        else
        {
@@ -453,6 +453,75 @@ try
     return tempVal;
 }
 
+/*==============CONCENTRATIONS=FILE=PROCESSING================================*/
+
+/**
+  Retrieveing S2 concentrations from FWB file "con.1_m3.p_(...).csv"
+ * @brief conсentraionParse
+ * @param path - path to the contcentraions' file from FWB's ter-reactor's output
+ * @return std::vector<double> which contains concentrations according to the T field's temperature
+ */
+std::vector<std::pair<double, double>> concParse(std::string& path, std::vector<double>& Temperatures, const char delimiter) {
+
+    std::fstream cs(path, std::fstream::in);
+
+    //S2 concentrations range
+    std::vector<std::pair<double, double>> conc;
+
+    try
+    {
+       if (!cs.is_open())
+       {
+           throw std::invalid_argument("OpenError: con.csv file");
+       }
+       else
+       {
+    //          cout << "Success: con.csv file opened" << '\n';
+
+          std::string str;
+
+          std::vector<double> temp;
+
+          std::stringstream ss;
+
+          std::getline(cs, str, '\n');
+
+          while (std::getline(cs, str, '\n'))
+          {
+               ss << str;
+
+               while (std::getline(ss, str, delimiter))
+               {
+                    temp.push_back(std::stod(*(&str)));
+               }
+
+               conc.push_back(std::make_pair(temp[0], temp[2]));
+
+               temp.clear();
+
+               ss.clear();
+          }
+       }
+    }
+    catch (std::invalid_argument& ia)
+    {
+        std::cerr << ia.what() << '\n';
+    }
+
+    cs.close();
+
+    //    std::cout << "Success: con.csv file closed" << '\n';
+
+    std::vector<std::pair<double, double>> concMesh = interMesh(conc, Temperatures);
+
+    concMesh.erase(std::unique(concMesh.begin(), concMesh.end(),
+             [](const std::pair<double, double>& a, const std::pair<double, double>& b)
+             {return std::abs(a.first - b.first) < 1e-11;}), concMesh.end());
+
+    return concMesh;
+}
+
+
 /*==============GRID=PROCESSING=FUNCTIONS=====================================*/
 
 std::vector<std::pair<double, double>> interMesh(std::vector<std::pair<double, double>>& m1,
@@ -466,6 +535,30 @@ std::vector<std::pair<double, double>> interMesh(std::vector<std::pair<double, d
     for (size_t i = 0; i < m2.size(); ++i) {
 
         double xn = m2[i].first;
+
+        if (!isinX(xn, m1)) {m1n.push_back(std::make_pair(xn, grid1.findValue(xn)));}
+
+    }
+
+    std::sort(std::begin(m1n), std::end(m1n),
+              [](std::pair<double, double> a, std::pair<double, double> b) {
+        return (b.first - a.first) > 1e-11;
+    });
+
+    return m1n;
+}
+
+std::vector<std::pair<double, double>> interMesh(std::vector<std::pair<double, double>>& m1,
+                                                 std::vector<double>& m2) {
+    Interpolator grid1(m1);
+
+    std::vector<std::pair<double, double>> m1n;
+
+    for (auto& it: m1) {m1n.push_back(it);}
+
+    for (size_t i = 0; i < m2.size(); ++i) {
+
+        double xn = m2[i];
 
         if (!isinX(xn, m1)) {m1n.push_back(std::make_pair(xn, grid1.findValue(xn)));}
 

@@ -28,10 +28,17 @@ std::vector<double> GetTempCSV(std::string&);
 
 std::vector<double> GetTempField(std::string&);
 
+/*==============CONCENTRATIONS=FILE=PROCESSING================================*/
+
+std::vector<std::pair<double, double>> concParse(std::string& path, std::vector<double>& Temperatures, const char delimiter=';');
+
 /*==============GRID=PROCESSING=FUNCTIONS=====================================*/
 
 std::vector<std::pair<double, double>> interMesh(std::vector<std::pair<double, double>>&,
                                                  std::vector<std::pair<double, double>>&);
+
+std::vector<std::pair<double, double>> interMesh(std::vector<std::pair<double, double>>&,
+                                                 std::vector<double>&);
 
 /*==============MATH=FUNCTIONS=AND=BOOLEAN=FILTERS============================*/
 
