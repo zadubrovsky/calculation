@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "functions.h"
 
+
+
 int main()
 {
     Timer t; //time counter
