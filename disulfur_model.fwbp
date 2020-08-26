@@ -1,0 +1,495 @@
+<?xml version="1.0"?>
+<MulticompCalculation name="">
+  <RunStatus is_running="false">
+    <WorkFolder/>
+    <ResFolder/>
+    <RunmanArgs/>
+  </RunStatus>
+  <Workflow>
+    <ResultsFolder>disulfur_model.work</ResultsFolder>
+    <Module module_id="1" parent_id="-1" class_id="MWB_MIXTURE_EDITOR" editor="true">
+      <UI x="-5.1200000000000000e+02" y="-5.7600000000000000e+02" comment=""/>
+      <ModuleParameters>
+        <comp type="0" columns="0" size="0" invalidValues="true"/>
+      </ModuleParameters>
+      <InputPorts/>
+      <OutputPorts>
+        <Port id="MIXTURE">
+          <Data>
+            <Mixture>
+              <SubsList>
+                <MWBSubstance>
+                  <Substance id="123151" Name="S/g;NoName;0;no;;;;;;;;;no;;;0;0;;;;;0;0;0;0;;;;;;;;;/">
+                    <Name formula="S" phase_type="g" charge="0"/>
+                    <CommonProperty>
+                      <Thermodynamics>
+                        <IVTAN_ThermoInterpolation>
+                          <Tmin id="123244" value="2.9814999999999998e+02" units="K"/>
+                          <Tmax id="123245" value="1.0000000000000000e+03" units="K"/>
+                          <F1 id="123246" value="2.4496496946731119e+02"/>
+                          <F2 id="123247" value="2.9003486521155171e+01"/>
+                          <F3 id="123248" value="-4.7821990485968110e-04"/>
+                          <F4 id="123249" value="1.6133247962921821e-01"/>
+                          <F5 id="123250" value="-9.4025973493039587e+01"/>
+                          <F6 id="123251" value="2.8057803454529761e+02"/>
+                          <F7 id="123252" value="-4.5361906887301132e+02"/>
+                          <DFH298 id="123152" value="2.7718000000000001e+02" units="kJ/mole"/>
+                          <CP298 id="123153" value="2.3672999999999998e+01" units="J/mole/K"/>
+                          <S298 id="123154" value="1.6771799999999999e+02" units="J/mole/K"/>
+                          <H298H0 id="123155" value="6.6570000000000000e+00" units="kJ/mole"/>
+                          <DFH0 id="123156" value="2.7493500000000000e+02" units="kJ/mole"/>
+                        </IVTAN_ThermoInterpolation>
+                        <IVTAN_ThermoInterpolation>
+                          <Tmin id="123265" value="1.0000000000000000e+03" units="K"/>
+                          <Tmax id="123266" value="3.0000000000000000e+03" units="K"/>
+                          <F1 id="123267" value="2.2620450828741019e+02"/>
+                          <F2 id="123268" value="2.2431122742644771e+01"/>
+                          <F3 id="123269" value="1.9141677462566099e-03"/>
+                          <F4 id="123270" value="-1.0903469355285780e-01"/>
+                          <F5 id="123271" value="-1.1227611024647389e+01"/>
+                          <F6 id="123272" value="1.7334012829597992e+01"/>
+                          <F7 id="123273" value="-9.5478140771218403e+00"/>
+                          <DFH298 id="123152" value="2.7718000000000001e+02" units="kJ/mole"/>
+                          <CP298 id="123153" value="2.3672999999999998e+01" units="J/mole/K"/>
+                          <S298 id="123154" value="1.6771799999999999e+02" units="J/mole/K"/>
+                          <H298H0 id="123155" value="6.6570000000000000e+00" units="kJ/mole"/>
+                          <DFH0 id="123156" value="2.7493500000000000e+02" units="kJ/mole"/>
+                        </IVTAN_ThermoInterpolation>
+                        <IVTAN_ThermoInterpolation>
+                          <Tmin id="123286" value="3.0000000000000000e+03" units="K"/>
+                          <Tmax id="123287" value="1.0000000000000000e+04" units="K"/>
+                          <F1 id="123288" value="2.1738882022200599e+02"/>
+                          <F2 id="123289" value="1.8437673510782041e+01"/>
+                          <F3 id="123290" value="-1.1440862442977101e-02"/>
+                          <F4 id="123291" value="-2.4626576008147821e-01"/>
+                          <F5 id="123292" value="9.6655285704171252e+00"/>
+                          <F6 id="123293" value="-4.1614086060335884e+00"/>
+                          <F7 id="123294" value="8.2833252384947009e-01"/>
+                          <DFH298 id="123152" value="2.7718000000000001e+02" units="kJ/mole"/>
+                          <CP298 id="123153" value="2.3672999999999998e+01" units="J/mole/K"/>
+                          <S298 id="123154" value="1.6771799999999999e+02" units="J/mole/K"/>
+                          <H298H0 id="123155" value="6.6570000000000000e+00" units="kJ/mole"/>
+                          <DFH0 id="123156" value="2.7493500000000000e+02" units="kJ/mole"/>
+                        </IVTAN_ThermoInterpolation>
+                        <NASA_ThermoInterpolation>
+                          <Tmin id="123307" value="2.9814999999999998e+02" units="K"/>
+                          <Tmax id="123308" value="3.0000000000000000e+03" units="K"/>
+                          <F1 id="123309" value="3.0859517709220472e+00"/>
+                          <F2 id="123310" value="-9.6988695459241801e-04"/>
+                          <F3 id="123311" value="6.1468255919719188e-07"/>
+                          <F4 id="123312" value="-1.6414889777229811e-10"/>
+                          <F5 id="123313" value="1.6882656956630931e-14"/>
+                          <F6 id="123314" value="3.2454969524044522e+04"/>
+                          <F7 id="123315" value="2.8525742669193970e+00"/>
+                          <DFH298 id="123152" value="2.7718000000000001e+02" units="kJ/mole"/>
+                          <CP298 id="123153" value="2.3672999999999998e+01" units="J/mole/K"/>
+                          <S298 id="123154" value="1.6771799999999999e+02" units="J/mole/K"/>
+                          <H298H0 id="123155" value="6.6570000000000000e+00" units="kJ/mole"/>
+                          <DFH0 id="123156" value="2.7493500000000000e+02" units="kJ/mole"/>
+                        </NASA_ThermoInterpolation>
+                        <NASA_ThermoInterpolation>
+                          <Tmin id="123328" value="3.0000000000000000e+03" units="K"/>
+                          <Tmax id="123329" value="1.0000000000000000e+04" units="K"/>
+                          <F1 id="123330" value="1.9636059946416751e+00"/>
+                          <F2 id="123331" value="3.7690568946631620e-04"/>
+                          <F3 id="123332" value="-6.2028833271013521e-08"/>
+                          <F4 id="123333" value="4.3345975247601717e-12"/>
+                          <F5 id="123334" value="-1.1344176809197629e-16"/>
+                          <F6 id="123335" value="3.3266062105091281e+04"/>
+                          <F7 id="123336" value="9.6711299652526428e+00"/>
+                          <DFH298 id="123152" value="2.7718000000000001e+02" units="kJ/mole"/>
+                          <CP298 id="123153" value="2.3672999999999998e+01" units="J/mole/K"/>
+                          <S298 id="123154" value="1.6771799999999999e+02" units="J/mole/K"/>
+                          <H298H0 id="123155" value="6.6570000000000000e+00" units="kJ/mole"/>
+                          <DFH0 id="123156" value="2.7493500000000000e+02" units="kJ/mole"/>
+                        </NASA_ThermoInterpolation>
+                      </Thermodynamics>
+                      <MolarMass id="123157" value="3.2060000000000002e+01" units="g/mole"/>
+                      <LennardJones>
+                        <TMin id="123158" value="3.0000000000000000e+02" units="K"/>
+                        <TMax id="123159" value="2.0000000000000000e+03" units="K"/>
+                        <Sigma id="123160" value="3.8390000000000000e+00" units="A"/>
+                        <Eps id="123161" value="8.4900000000000000e+02" units="K"/>
+                      </LennardJones>
+                      <AlternateName Name="Sulfur" Lang="EN"/>
+                      <Composition>
+                        <Element name="S" count="1.0000000000000000e+00"/>
+                      </Composition>
+                    </CommonProperty>
+                    <AtomProperty AtomsCount="1"/>
+                    <Structure>
+                      <uc1 id="123182" value="100"/>
+                      <uc2 id="123183" value="0"/>
+                      <uc3 id="123184" value="1107313558"/>
+                      <scr1 id="123185" value="0"/>
+                      <scr2 id="123186" value="0"/>
+                      <scr3 id="123187" value="16384"/>
+                      <scr4 id="123188" value="0"/>
+                      <scr5 id="123189" value="0"/>
+                      <smiles id="123190" value="[S]"/>
+                      <inchi id="123191" value="InChI=1S/S"/>
+                      <inchi_key id="123192" value="NINIDFKCEFEMDL-UHFFFAOYSA-N"/>
+                      <strdata>2xqLpAIAAABkAAAAAAAAAJZDAEIAAAAAAAAAAABAAAAAAAAAAAAAAAEAAAB4AAAAEAAAAAAAAAAAAAAABAAAAAEAAAAgKe0DICntAzBbIAQAAAAAAgAAAAAAAAAAAAAAlJUQh/7///8QvhoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////AAEAAAAAAAAAICntAwQAAAAAAAAAICntAyAp7QMEAAAAAAAAABAAAAAAAAAA</strdata>
+                    </Structure>
+                  </Substance>
+                  <CollInteract>
+                    <LJ>
+                      <sigma id="123193" value="3.8390000000000000e+00" units="A"/>
+                      <eps id="123194" value="8.4900000000000000e+02" units="K"/>
+                    </LJ>
+                    <BM>
+                      <alpha id="123201" value="2.7549999999999999e+00" units="A"/>
+                      <a id="123202" value="6.9800000000000000e+02" units="K"/>
+                    </BM>
+                  </CollInteract>
+                  <CriticalParams/>
+                  <DiatomicData>
+                    <Terms/>
+                    <Transitions/>
+                    <Continuums/>
+                  </DiatomicData>
+                  <AtomSpectra>
+                    <Levels>
+                      <lev c="...3s(2)3p(4)" t="3P(2)" e="0.0000000000000000e+00" w="5"/>
+                      <lev c="...3s(2)3p(4)" t="3P(1)" e="3.9608999999999997e+02" w="3"/>
+                      <lev c="...3s(2)3p(4)" t="3P(0)" e="5.7364999999999998e+02" w="1"/>
+                      <lev c="...3s(2)3p(4)" t="1D(2)" e="9.2385799999999999e+03" w="5"/>
+                      <lev c="...3s(2)3p(4)" t="1S(0)" e="2.2179990000000002e+04" w="1"/>
+                    </Levels>
+                  </AtomSpectra>
+                </MWBSubstance>
+                <MWBSubstance>
+                  <Substance id="123337" Name="S2/g;NoName;0;no;;;;;;;;;no;;;0;0;;;;;0;0;0;0;;;;;;;;;/">
+                    <Name formula="S2" phase_type="g" charge="0"/>
+                    <CommonProperty>
+                      <Thermodynamics>
+                        <IVTAN_ThermoInterpolation>
+                          <Tmin id="123430" value="2.9814999999999998e+02" units="K"/>
+                          <Tmax id="123431" value="1.5000000000000000e+03" units="K"/>
+                          <F1 id="123432" value="3.0702337114223587e+02"/>
+                          <F2 id="123433" value="3.2852250733672193e+01"/>
+                          <F3 id="123434" value="-1.0987408923943220e-03"/>
+                          <F4 id="123435" value="1.7381777743078181e-01"/>
+                          <F5 id="123436" value="4.3276696645536823e+01"/>
+                          <F6 id="123437" value="-9.4228929398254706e+01"/>
+                          <F7 id="123438" value="1.4708926154859691e+02"/>
+                          <DFH298 id="123338" value="1.2859999999999999e+02" units="kJ/mole"/>
+                          <CP298 id="123339" value="3.2505000000000003e+01" units="J/mole/K"/>
+                          <S298 id="123340" value="2.2805500000000001e+02" units="J/mole/K"/>
+                          <H298H0 id="123341" value="9.1319999999999997e+00" units="kJ/mole"/>
+                          <DFH0 id="123342" value="1.2829200000000000e+02" units="kJ/mole"/>
+                        </IVTAN_ThermoInterpolation>
+                        <IVTAN_ThermoInterpolation>
+                          <Tmin id="123451" value="1.5000000000000000e+03" units="K"/>
+                          <Tmax id="123452" value="6.0000000000000000e+03" units="K"/>
+                          <F1 id="123453" value="3.1930993127721717e+02"/>
+                          <F2 id="123454" value="3.9887852964567337e+01"/>
+                          <F3 id="123455" value="-2.5581823497479249e-02"/>
+                          <F4 id="123456" value="1.1053476124171480e+00"/>
+                          <F5 id="123457" value="5.8876740679393418e+00"/>
+                          <F6 id="123458" value="-3.7994708754588662e+00"/>
+                          <F7 id="123459" value="2.6300430584125878e+00"/>
+                          <DFH298 id="123338" value="1.2859999999999999e+02" units="kJ/mole"/>
+                          <CP298 id="123339" value="3.2505000000000003e+01" units="J/mole/K"/>
+                          <S298 id="123340" value="2.2805500000000001e+02" units="J/mole/K"/>
+                          <H298H0 id="123341" value="9.1319999999999997e+00" units="kJ/mole"/>
+                          <DFH0 id="123342" value="1.2829200000000000e+02" units="kJ/mole"/>
+                        </IVTAN_ThermoInterpolation>
+                        <NASA_ThermoInterpolation>
+                          <Tmin id="123472" value="2.9814999999999998e+02" units="K"/>
+                          <Tmax id="123473" value="1.2000000000000000e+03" units="K"/>
+                          <F1 id="123474" value="2.8466969443098420e+00"/>
+                          <F2 id="123475" value="5.2783050236128552e-03"/>
+                          <F3 id="123476" value="-6.9187848300207929e-06"/>
+                          <F4 id="123477" value="4.2001246337894243e-09"/>
+                          <F5 id="123478" value="-9.1864498692848511e-13"/>
+                          <F6 id="123479" value="1.4436920186627091e+04"/>
+                          <F7 id="123480" value="9.9078475414211287e+00"/>
+                          <DFH298 id="123338" value="1.2859999999999999e+02" units="kJ/mole"/>
+                          <CP298 id="123339" value="3.2505000000000003e+01" units="J/mole/K"/>
+                          <S298 id="123340" value="2.2805500000000001e+02" units="J/mole/K"/>
+                          <H298H0 id="123341" value="9.1319999999999997e+00" units="kJ/mole"/>
+                          <DFH0 id="123342" value="1.2829200000000000e+02" units="kJ/mole"/>
+                        </NASA_ThermoInterpolation>
+                        <NASA_ThermoInterpolation>
+                          <Tmin id="123493" value="1.2000000000000000e+03" units="K"/>
+                          <Tmax id="123494" value="6.0000000000000000e+03" units="K"/>
+                          <F1 id="123495" value="3.6578160024575719e+00"/>
+                          <F2 id="123496" value="1.1238166751111800e-03"/>
+                          <F3 id="123497" value="-3.6602027176769192e-07"/>
+                          <F4 id="123498" value="5.6444017033740193e-11"/>
+                          <F5 id="123499" value="-3.0556245038913859e-15"/>
+                          <F6 id="123500" value="1.4372844709481700e+04"/>
+                          <F7 id="123501" value="6.3364651422215283e+00"/>
+                          <DFH298 id="123338" value="1.2859999999999999e+02" units="kJ/mole"/>
+                          <CP298 id="123339" value="3.2505000000000003e+01" units="J/mole/K"/>
+                          <S298 id="123340" value="2.2805500000000001e+02" units="J/mole/K"/>
+                          <H298H0 id="123341" value="9.1319999999999997e+00" units="kJ/mole"/>
+                          <DFH0 id="123342" value="1.2829200000000000e+02" units="kJ/mole"/>
+                        </NASA_ThermoInterpolation>
+                      </Thermodynamics>
+                      <MolarMass id="123343" value="6.4120000000000005e+01" units="g/mole"/>
+                      <LennardJones>
+                        <TMin id="123344" value="3.0000000000000000e+02" units="K"/>
+                        <TMax id="123345" value="2.0000000000000000e+03" units="K"/>
+                        <Sigma id="123346" value="4.5190000000000001e+00" units="A"/>
+                        <Eps id="123347" value="8.4700000000000000e+02" units="K"/>
+                      </LennardJones>
+                      <AlternateName Name="Disulfur" Lang="EN"/>
+                      <Composition>
+                        <Element name="S" count="2.0000000000000000e+00"/>
+                      </Composition>
+                    </CommonProperty>
+                    <DiatomicProperty AtomsCount="2"/>
+                    <Structure>
+                      <uc1 id="123368" value="1276116992"/>
+                      <uc2 id="123369" value="228327424"/>
+                      <uc3 id="123370" value="1115702166"/>
+                      <scr1 id="123371" value="0"/>
+                      <scr2 id="123372" value="67108864"/>
+                      <scr3 id="123373" value="16385"/>
+                      <scr4 id="123374" value="131072"/>
+                      <scr5 id="123375" value="0"/>
+                      <smiles id="123376" value="S=S"/>
+                      <inchi id="123377" value="InChI=1S/S2/c1-2"/>
+                      <inchi_key id="123378" value="MAHNFPMIPQKPPI-UHFFFAOYSA-N"/>
+                      <strdata>2xqLpAIAAAAAABBMAACcDZZDgEIAAAAAAAAABAFAAAAAAAIAAAAAAAIAAAB4AAAAEAIAAAAAAD8AAAAABAAAAAABAgACAAIFSAYCBSBQ6QQAAAAAAgAAAAAAAAAAAAAAlJUQh/7///8QvhoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////AAEAAAAAAAAASAYCBQQAAAAAAAAASAYCBUgGAgUEAAAAEAIAAAAAAL8AAAAABAAAAAABAgABAAIFSAYCBSBQ6QQAAAAAAgAAAAAAAAAAAAAAlJUQh/7///8QvhoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA////AAEAAAAAAAAASAYCBQQAAAAAAAAASAYCBUgGAgUEAAAAAQAAABAAAAACAAEAAgAAAAAAAAAAAAAAAAAAAA==</strdata>
+                    </Structure>
+                  </Substance>
+                  <CollInteract>
+                    <LJ>
+                      <sigma id="123379" value="4.5190000000000001e+00" units="A"/>
+                      <eps id="123380" value="8.4700000000000000e+02" units="K"/>
+                    </LJ>
+                  </CollInteract>
+                  <CriticalParams/>
+                  <DiatomicData>
+                    <Terms>
+                      <DiatomicTerm name="B3">
+                        <te id="123502" value="3.1835000000000000e+04" units="1/cm"/>
+                        <we id="123503" value="4.3400000000000000e+02" units="1/cm"/>
+                        <wexe id="123504" value="2.7500000000000000e+00" units="1/cm"/>
+                        <be id="123505" value="2.2389999999999999e-01" units="1/cm"/>
+                        <m1 id="123506" value="3.2060000000000002e+01" units="a.m.u."/>
+                        <m2 id="123507" value="3.2060000000000002e+01" units="a.m.u."/>
+                        <lambda id="123508" value="0.0000000000000000e+00"/>
+                        <spin id="123509" value="1.0000000000000000e+00"/>
+                        <maxv id="123510" value="17"/>
+                      </DiatomicTerm>
+                      <DiatomicTerm name="D3">
+                        <te id="123520" value="3.1150000000000000e+04" units="1/cm"/>
+                        <we id="123521" value="7.9379999999999995e+02" units="1/cm"/>
+                        <wexe id="123522" value="4.0000000000000000e+00" units="1/cm"/>
+                        <be id="123523" value="3.0659999999999998e-01" units="1/cm"/>
+                        <m1 id="123524" value="3.2060000000000002e+01" units="a.m.u."/>
+                        <m2 id="123525" value="3.2060000000000002e+01" units="a.m.u."/>
+                        <lambda id="123526" value="1.0000000000000000e+00"/>
+                        <spin id="123527" value="1.0000000000000000e+00"/>
+                        <maxv id="123528" value="10"/>
+                      </DiatomicTerm>
+                      <DiatomicTerm name="X3">
+                        <te id="123538" value="0.0000000000000000e+00" units="1/cm"/>
+                        <we id="123539" value="7.2564999999999998e+02" units="1/cm"/>
+                        <wexe id="123540" value="2.8439999999999999e+00" units="1/cm"/>
+                        <be id="123541" value="2.9540000000000000e-01" units="1/cm"/>
+                        <m1 id="123542" value="3.2060000000000002e+01" units="a.m.u."/>
+                        <m2 id="123543" value="3.2060000000000002e+01" units="a.m.u."/>
+                        <lambda id="123544" value="0.0000000000000000e+00"/>
+                        <spin id="123545" value="1.0000000000000000e+00"/>
+                        <maxv id="123546" value="35"/>
+                      </DiatomicTerm>
+                    </Terms>
+                    <Transitions>
+                      <DiatomicTrans term1="B3" term2="X3">
+                        <EDMTable>
+                          <de dist="2.8430900000000001e+00" edm="2.1041599999999999e-01"/>
+                          <de dist="2.8940500000000000e+00" edm="3.2298800000000000e-01"/>
+                          <de dist="2.9601199999999999e+00" edm="4.4397700000000001e-01"/>
+                          <de dist="3.0337299999999998e+00" edm="5.5812700000000004e-01"/>
+                          <de dist="3.1432099999999998e+00" edm="6.9752800000000004e-01"/>
+                          <de dist="3.2394699999999998e+00" edm="7.9116299999999995e-01"/>
+                          <de dist="3.3866999999999998e+00" edm="8.6270400000000003e-01"/>
+                          <de dist="3.4886200000000001e+00" edm="9.0373499999999996e-01"/>
+                          <de dist="3.6207500000000001e+00" edm="9.3056300000000003e-01"/>
+                          <de dist="3.7604299999999999e+00" edm="9.3634899999999999e-01"/>
+                          <de dist="3.9302999999999999e+00" edm="9.2635500000000004e-01"/>
+                          <de dist="4.1284999999999998e+00" edm="8.9373999999999998e-01"/>
+                          <de dist="4.3700999999999999e+00" edm="8.2798499999999997e-01"/>
+                          <de dist="4.6192500000000001e+00" edm="7.4855300000000002e-01"/>
+                          <de dist="4.8551900000000003e+00" edm="6.5860099999999999e-01"/>
+                          <de dist="5.1119000000000003e+00" edm="5.4392399999999996e-01"/>
+                          <de dist="5.3837000000000002e+00" edm="3.9873799999999998e-01"/>
+                          <de dist="5.6328600000000000e+00" edm="2.7827499999999999e-01"/>
+                          <de dist="5.8971099999999996e+00" edm="1.6991100000000001e-01"/>
+                          <de dist="6.1462599999999998e+00" edm="1.0836400000000000e-01"/>
+                          <de dist="6.4916799999999997e+00" edm="4.8921600000000003e-02"/>
+                          <de dist="6.9616699999999998e+00" edm="1.8411400000000001e-02"/>
+                        </EDMTable>
+                      </DiatomicTrans>
+                    </Transitions>
+                    <Continuums/>
+                  </DiatomicData>
+                </MWBSubstance>
+              </SubsList>
+            </Mixture>
+          </Data>
+        </Port>
+      </OutputPorts>
+      <Status run_status="Successful"/>
+      <CalculatedResults>
+        <Files/>
+        <Logs>
+          <Log stage="1" log1="n_1_-1_MWB_MIXTURE_EDITOR/.stdout.1.-1.txt" log2="n_1_-1_MWB_MIXTURE_EDITOR/.stderr.1.-1.txt" stageName=""/>
+        </Logs>
+      </CalculatedResults>
+    </Module>
+    <Module module_id="2" parent_id="-1" class_id="MWB_STREAM_EDITOR" editor="true">
+      <UI x="-5.2800000000000000e+02" y="-4.4800000000000000e+02" comment=""/>
+      <ModuleParameters>
+        <comp type="0" columns="0" size="0" invalidValues="true"/>
+      </ModuleParameters>
+      <InputPorts/>
+      <OutputPorts>
+        <Port id="STREAM">
+          <Data>
+            <Stream fract_type="0">
+              <StreamSubsystem Name="">
+                <IsothermicSubsystemProperty>
+                  <Temperature id="123559" value="3.0000000000000000e+02" units="K"/>
+                </IsothermicSubsystemProperty>
+                <StreamSubstance Name="S2/g;NoName;0;no;;;;;;;;;no;;;0;0;;;;;0;0;0;0;;;;;;;;;/" Fraction="1.0000000000000000e+02" id="123563"/>
+              </StreamSubsystem>
+              <var_cap id="123560" value=" "/>
+              <var_id id="123561" value=" "/>
+              <atom_out id="123562" value="false"/>
+            </Stream>
+          </Data>
+        </Port>
+      </OutputPorts>
+      <Status run_status="Successful"/>
+      <CalculatedResults>
+        <Files/>
+        <Logs>
+          <Log stage="1" log1="n_2_-1_MWB_STREAM_EDITOR/.stdout.1.-1.txt" log2="n_2_-1_MWB_STREAM_EDITOR/.stderr.1.-1.txt" stageName=""/>
+        </Logs>
+      </CalculatedResults>
+    </Module>
+    <Module module_id="3" parent_id="-1" class_id="MWB_TER_PT">
+      <UI x="-3.8400000000000000e+02" y="-4.6400000000000000e+02" comment=""/>
+      <ModuleParameters>
+        <p_array type="0" columns="1" size="1" invalidValues="false">
+          <Column type="6" number="1" name="Pressure, atm" id="0">
+            <value id="0" data="1"/>
+          </Column>
+        </p_array>
+        <temp_array type="0" columns="3" size="1" invalidValues="false">
+          <Column type="6" number="1" name="     From[K]     " id="0">
+            <value id="0" data="5000"/>
+          </Column>
+          <Column type="6" number="2" name="     To[K]       " id="1">
+            <value id="0" data="5000"/>
+          </Column>
+          <Column type="2" number="3" name="     Points      " id="2">
+            <value id="0" data="1"/>
+          </Column>
+        </temp_array>
+      </ModuleParameters>
+      <InputPorts>
+        <Port id="INP_MIXTURE"/>
+        <Port id="INP_STREAM"/>
+      </InputPorts>
+      <OutputPorts>
+        <Port id="CALC_CONC">
+          <Data>
+            <File id="conc_vol" path="n_3_-1_MWB_TER_PT/conc.1_m3.xml"/>
+            <File id="conc_vol_frac" path="n_3_-1_MWB_TER_PT/conc.m3_m3.xml"/>
+            <File id="mix" path=""/>
+          </Data>
+        </Port>
+      </OutputPorts>
+      <Status run_status="Successful"/>
+      <CalculatedResults>
+        <Files>
+          <File id="conc" path="n_3_-1_MWB_TER_PT/" type="table" display_name="conc" mask="conc*.csv"/>
+          <File id="conc_1_m3" path="n_3_-1_MWB_TER_PT/conc.1_m3.xml" type="text" display_name="conc_1_m3"/>
+          <File id="conc_m3_m3" path="n_3_-1_MWB_TER_PT/conc.m3_m3.xml" type="text" display_name="conc_m3_m3"/>
+          <File id="params" path="n_3_-1_MWB_TER_PT/" type="table" display_name="params" mask="params*.csv"/>
+        </Files>
+        <Logs>
+          <Log stage="0" log1="n_3_-1_MWB_TER_PT/.stdout.0.-1.txt" log2="n_3_-1_MWB_TER_PT/.stderr.0.-1.txt" stageName=""/>
+          <Log stage="1" log1="n_3_-1_MWB_TER_PT/.stdout.1.-1.txt" log2="n_3_-1_MWB_TER_PT/.stderr.1.-1.txt" stageName=""/>
+          <Log stage="2" log1="n_3_-1_MWB_TER_PT/.stdout.2.-1.txt" log2="n_3_-1_MWB_TER_PT/.stderr.2.-1.txt" stageName=""/>
+        </Logs>
+      </CalculatedResults>
+    </Module>
+    <Module module_id="4" parent_id="-1" class_id="MWB_OPTICAL_MODEL_MT">
+      <UI x="-2.8800000000000000e+02" y="-5.6000000000000000e+02" comment=""/>
+      <ModuleParameters>
+        <airw value="false"/>
+        <mfl value="true"/>
+        <mflpoints id="123575" value="5"/>
+        <mflstep id="123576" value="1.0000000000000000e-02"/>
+        <min_inp_conc id="123577" value="1.0000000000000000e-08"/>
+        <proc_num value="0"/>
+        <rads type="0" columns="0" size="0" invalidValues="true"/>
+        <run_case value="0"/>
+        <temp_array type="0" columns="0" size="0" invalidValues="true"/>
+        <use_atom_cont value="true"/>
+        <use_atom_lines value="true"/>
+        <use_diat_cont value="true"/>
+        <use_diat_lines value="true"/>
+        <wl_array type="0" columns="3" size="1" invalidValues="false">
+          <Column type="6" number="1" name="     From[nm]    " id="0">
+            <value id="0" data="200"/>
+          </Column>
+          <Column type="6" number="2" name="     Step[nm]    " id="1">
+            <value id="0" data="0.025"/>
+          </Column>
+          <Column type="6" number="3" name="     To[nm]      " id="2">
+            <value id="0" data="800"/>
+          </Column>
+        </wl_array>
+      </ModuleParameters>
+      <InputPorts>
+        <Port id="INP_CONC"/>
+        <Port id="INP_MIXTURE"/>
+      </InputPorts>
+      <OutputPorts>
+        <Port id="CALC_ABSORP_FILES">
+          <Data>
+            <File id="Kabs" path="n_4_-1_MWB_OPTICAL_MODEL_MT/"/>
+          </Data>
+        </Port>
+      </OutputPorts>
+      <Status run_status="Successful"/>
+      <CalculatedResults>
+        <Files>
+          <File id="Report" path="n_4_-1_MWB_OPTICAL_MODEL_MT/report.html" type="html" display_name="Report"/>
+          <File id="csv" path="n_4_-1_MWB_OPTICAL_MODEL_MT/" type="table" display_name="csv" mask="abs.p_*_.csv"/>
+          <File id="text" path="n_4_-1_MWB_OPTICAL_MODEL_MT/" type="text" display_name="text" mask="abs.p_*_.txt"/>
+        </Files>
+        <Logs>
+          <Log stage="0" log1="n_4_-1_MWB_OPTICAL_MODEL_MT/.stdout.0.-1.txt" log2="n_4_-1_MWB_OPTICAL_MODEL_MT/.stderr.0.-1.txt" stageName=""/>
+          <Log stage="1" log1="n_4_-1_MWB_OPTICAL_MODEL_MT/.stdout.1.-1.txt" log2="n_4_-1_MWB_OPTICAL_MODEL_MT/.stderr.1.-1.txt" stageName=""/>
+          <Log stage="2" log1="n_4_-1_MWB_OPTICAL_MODEL_MT/.stdout.2.-1.txt" log2="n_4_-1_MWB_OPTICAL_MODEL_MT/.stderr.2.-1.txt" stageName=""/>
+        </Logs>
+      </CalculatedResults>
+    </Module>
+    <DataFlow data_flow_id="1" data_type_id="mixture">
+      <From module_id="1" port_id="MIXTURE"/>
+      <To module_id="3" port_id="INP_MIXTURE"/>
+    </DataFlow>
+    <DataFlow data_flow_id="2" data_type_id="stream">
+      <From module_id="2" port_id="STREAM"/>
+      <To module_id="3" port_id="INP_STREAM"/>
+    </DataFlow>
+    <DataFlow data_flow_id="3" data_type_id="mix_conc_files">
+      <From module_id="3" port_id="CALC_CONC"/>
+      <To module_id="4" port_id="INP_CONC"/>
+    </DataFlow>
+    <DataFlow data_flow_id="4" data_type_id="mixture">
+      <From module_id="1" port_id="MIXTURE"/>
+      <To module_id="4" port_id="INP_MIXTURE"/>
+    </DataFlow>
+  </Workflow>
+</MulticompCalculation>
