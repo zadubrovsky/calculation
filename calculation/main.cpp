@@ -54,7 +54,7 @@ int main()
 
     std::ofstream data;
 
-    data.open("..\\output\\output", std::ios_base::out);
+    data.open("..\\output\\phptorate.dat", std::ios_base::out);
 
     data << Temperatures.size() << "\n(\n";
 
@@ -138,7 +138,7 @@ int main()
 
     }
 
-    data << ")\n;\n";
+    data << ")\n";
 
     data.close();   //closing output file
 
